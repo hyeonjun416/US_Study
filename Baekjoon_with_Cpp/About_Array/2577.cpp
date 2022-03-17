@@ -1,39 +1,30 @@
 // 숫자의 개수
 #include <iostream>
-#include <cmath>
 
 using namespace std;
 
 int main(){
-    int num1,num2,num3;
-    cin >> num1 >> num2 >> num3;
-    int multiply = num1*num2*num3;
-    int digits=0;
-    while(multiply != 0){
-        multiply=multiply/10;
+    int numa, numb, numc;
+    cin >> numa >> numb >> numc;
+    int multiply = numa * numb * numc;
+    int compare[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    int result[100];
+    int digits = 0;
+    while(multiply>0){
+        result[digits] = multiply%10;
+        multiply /= 10;
         digits++;
     }
-    multiply = num1*num2*num3;
-    int count_dnum[digits];
-    int count_num = 0;
-    int digits_cp = digits;
-    int a = pow(10,digits_cp-1);
-    for(int i = 0; i<digits; i++){
-        count_dnum[i] = multiply/a;
-        multiply = multiply % a;
-        digits_cp--;
-        cout << multiply << endl;
-    }
-    int result[10];
-    for(int i=0; i<10; i++){
+    for(int i = 0; i < 10; i++){
+        int count = 0;
         for(int j = 0; j<digits; j++){
-            if(i==count_dnum[j]) count_num++;
+            if(compare[i]==result[j]) count++;
         }
-        result[i] = count_num;
-        count_num = 0;
+        compare[i] = count;
     }
-    // for(int i = 0; i<10; i++){
-    //     cout << result[i] << endl;
-    //}
+    
+    for(int i = 0; i< 10; i++){
+        cout << compare[i] << endl;
+    }
     return 0;
 }
