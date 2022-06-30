@@ -1,22 +1,38 @@
 #include <iostream>
-#include <sstream>
+#include <string>
+#include <vector>
+#include <algorithm>
 
 using namespace std;
 
-// n 은 d(n)의 생성자 -> 33+3+3=39 에서, 33은 39의 생성자.
-// 이런 생성자가 없는 값을 셀프 넘버라고 한다.
-// 구상
-// 1 -> 2 -> 4 -> 8 -> 16 -> 16+1+6=23 -> 23+2+3=28 ->
-// 3 -> 6 -> 12 -> 12+1+2=15 -> ...
-// 5 -> 10 -> 11 -> 13 -> 13+1+3=17 -> ...
-// 7 -> 14 -> 14+1+4=19 -> ...
-// 9 -> 18 -> ...
-// 홀수를 대상으로 연산 -> 결과를 한 배열에 저장
-// self_num <= 10000 동안 self_num을 한 줄씩 출력
-// 
-// 수열 연산을 해줄 함수 생성
-int d_n(int n)
-{
-    char *tmp = n.c_str();
+vector<int>org;
+vector<int>sub;
 
+int d(string n){
+    int length = n.length();
+    int numa = stoi(n);
+    int sum = numa;
+    for(int i = 0; i<length; i++){
+        int tmp_num = n[i] - '0';
+        sum += tmp_num;
+    }
+    return sum;
+}
+
+int main(void){
+    vector<int> res;
+    for(int i = 1; i<=100; i++) org.push_back(i);
+    for(int i = 1; i<=100; i++){ // [0]=1,[1]=2,[2]=3 ...
+        int del_idx = d(to_string(i));
+        sub.push_back(del_idx);
+        // cout << sub[i] << endl;
+    }
+    sort(sub.begin(), sub.end());
+    // for(int i = 0; i < sub.size(); i++) cout << sub[i] << endl;
+    res.resize(org.size()+sub.size());
+    auto itr = set_difference(org.begin(), org.end(), sub.begin(), sub.end(), res.begin());
+    res.erase(itr, res.end());
+    for(int i = 0; i<res.size(); i++) cout << res[i] << endl;
+
+    return 0;
 }
