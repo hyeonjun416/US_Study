@@ -1,0 +1,38 @@
+#include<stdio.h>
+#define SIZE 100
+int number,bag;
+int object[SIZE][2]={0};
+int MAX=0,max=0,redundancy,value;
+int max_vlaue(int redundancy){
+    for(int i = 0 ; i < number ; i++){
+        if(redundancy > object[i][0]){
+            redundancy = redundancy - object[i][0];
+            max = max + object[i][1];
+            return max_vlaue(redundancy);
+        }
+    }
+    return max;
+}
+int main(){
+
+    scanf("%d",&number);
+    scanf("%d",&bag);
+    for(int i = 0 ; i < number ; i++){
+        for(int j = 0 ; j < 2 ; j++){
+            scanf("%d",&object[number][j]);
+        }
+    }
+    redundancy = bag;
+    for(int i = 0 ; i < number ; i++){
+        redundancy = redundancy - object[i][0];
+        max = max + object[i][1];
+            if(MAX < max_vlaue(redundancy))
+                MAX = max_vlaue(redundancy);
+            redundancy = bag;
+            }
+        
+    return 0;
+}
+/*대충 재귀함수로 모든 경우의 수를 볼려고 했지만 재귀함수도 잘 못쓰거니 와 시간복잡도 까지 고려 못했으므로
+의미가 없었음.그리드알고리즘인 것은 인지했지만 그리드알고리즘을 어떻게 쓰는지 몰라 이용도 못함
+아마 코드 완성햇어도 시간초과가 발생햇을 확률이 매우 높아 실패한 코드라고 할 수 있음*/
